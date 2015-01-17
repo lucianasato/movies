@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Country
+ * Distributor
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Country
+class Distributor
 {
     /**
      * @var integer
@@ -30,12 +30,12 @@ class Country
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Movie", mappedBy="country_id")
+     * @ORM\OneToMany(targetEntity="Movie", mappedBy="distributor_id")
      */
-    private $movies ;
+    private $distributors ;
 
     public function __construct() {
-        $this->movies = new ArrayCollection() ;
+        $this->distributors = new ArrayCollection() ;
     }
 
     public function __toString() {
@@ -56,7 +56,7 @@ class Country
      * Set name
      *
      * @param string $name
-     * @return Country
+     * @return Distributor
      */
     public function setName($name)
     {
@@ -76,35 +76,35 @@ class Country
     }
 
     /**
-     * Add movies
+     * Add distributors
      *
-     * @param \Sato\MoviesBundle\Entity\Movie $movies
-     * @return Country
+     * @param \Sato\MoviesBundle\Entity\Movie $distributors
+     * @return Distributor
      */
-    public function addMovie(\Sato\MoviesBundle\Entity\Movie $movies)
+    public function addDistributor(\Sato\MoviesBundle\Entity\Movie $distributors)
     {
-        $this->movies[] = $movies;
+        $this->distributors[] = $distributors;
 
         return $this;
     }
 
     /**
-     * Remove movies
+     * Remove distributors
      *
-     * @param \Sato\MoviesBundle\Entity\Movie $movies
+     * @param \Sato\MoviesBundle\Entity\Movie $distributors
      */
-    public function removeMovie(\Sato\MoviesBundle\Entity\Movie $movies)
+    public function removeDistributor(\Sato\MoviesBundle\Entity\Movie $distributors)
     {
-        $this->movies->removeElement($movies);
+        $this->distributors->removeElement($distributors);
     }
 
     /**
-     * Get movies
+     * Get distributors
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getMovies()
+    public function getDistributors()
     {
-        return $this->movies;
+        return $this->distributors;
     }
 }

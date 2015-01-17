@@ -43,6 +43,13 @@ class Movie
      */
     private $country_id;
 
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="Distributor", inversedBy="distributors")
+     * @ORM\JoinColumn(name="distributor_id", referencedColumnName="id")
+     */
+    private $distributor_id;
 
     /**
      * Get id
@@ -121,5 +128,28 @@ class Movie
     public function getCountryId()
     {
         return $this->country_id;
+    }
+
+    /**
+     * Set distributor_id
+     *
+     * @param \Sato\MoviesBundle\Entity\Distributor $distributorId
+     * @return Movie
+     */
+    public function setDistributorId(\Sato\MoviesBundle\Entity\Distributor $distributorId = null)
+    {
+        $this->distributor_id = $distributorId;
+
+        return $this;
+    }
+
+    /**
+     * Get distributor_id
+     *
+     * @return \Sato\MoviesBundle\Entity\Distributor 
+     */
+    public function getDistributorId()
+    {
+        return $this->distributor_id;
     }
 }

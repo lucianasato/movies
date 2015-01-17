@@ -18,6 +18,7 @@ class MovieType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('country_id')
+            ->add('distributor_id')
         ;
     }
     
