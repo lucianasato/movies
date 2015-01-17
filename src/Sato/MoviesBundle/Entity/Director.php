@@ -3,15 +3,14 @@
 namespace Sato\MoviesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Country
+ * Director
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Country
+class Director
 {
     /**
      * @var integer
@@ -30,23 +29,33 @@ class Country
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Movie", mappedBy="country_id")
+     * @var \DateTime
+     *
+     * @ORM\Column(name="birthdate", type="date")
      */
-    private $movies ;
+    private $birthdate;
 
     /**
-     * @ORM\OneToMany(targetEntity="Actor", mappedBy="country_id")
+     * @var integer
+     *
+     * @ORM\Column(name="country_id", type="integer")
      */
-    private $actors ;
+    private $countryId;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Movie", mappedBy="directors")
+     * @ORM\JoinTable(name="movies_directors")
+     */
+    private $movies;
 
     public function __construct() {
-        $this->movies = new ArrayCollection() ;
-        $this->actors = new ArrayCollection() ;
+        $this->movies = new ArrayCollection();
     }
 
     public function __toString() {
         return $this->name ;
     }
+
 
     /**
      * Get id
@@ -62,7 +71,7 @@ class Country
      * Set name
      *
      * @param string $name
-     * @return Country
+     * @return Director
      */
     public function setName($name)
     {
@@ -82,10 +91,58 @@ class Country
     }
 
     /**
+     * Set birthdate
+     *
+     * @param \DateTime $birthdate
+     * @return Director
+     */
+    public function setBirthdate($birthdate)
+    {
+        $this->birthdate = $birthdate;
+
+        return $this;
+    }
+
+    /**
+     * Get birthdate
+     *
+     * @return \DateTime 
+     */
+    public function getBirthdate()
+    {
+        return $this->birthdate;
+    }
+
+    /**
+     * Set countryId
+     *
+     * @param integer $countryId
+     * @return Director
+     */
+    public function setCountryId($countryId)
+    {
+        $this->countryId = $countryId;
+
+        return $this;
+    }
+
+    /**
+     * Get countryId
+     *
+     * @return integer 
+     */
+    public function getCountryId()
+    {
+        return $this->countryId;
+    }
+    
+    
+
+    /**
      * Add movies
      *
      * @param \Sato\MoviesBundle\Entity\Movie $movies
-     * @return Country
+     * @return Director
      */
     public function addMovie(\Sato\MoviesBundle\Entity\Movie $movies)
     {
