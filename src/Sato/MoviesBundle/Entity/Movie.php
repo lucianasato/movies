@@ -35,6 +35,14 @@ class Movie
      */
     private $description;
 
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="Country", inversedBy="movies")
+     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
+     */
+    private $country_id;
+
 
     /**
      * Get id
@@ -90,5 +98,28 @@ class Movie
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set country_id
+     *
+     * @param \Sato\MoviesBundle\Entity\Country $countryId
+     * @return Movie
+     */
+    public function setCountryId(\Sato\MoviesBundle\Entity\Country $countryId = null)
+    {
+        $this->country_id = $countryId;
+
+        return $this;
+    }
+
+    /**
+     * Get country_id
+     *
+     * @return \Sato\MoviesBundle\Entity\Country 
+     */
+    public function getCountryId()
+    {
+        return $this->country_id;
     }
 }

@@ -4,13 +4,16 @@ namespace Sato\MoviesBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sato\MoviesBundle\Entity\Movie;
 use Sato\MoviesBundle\Form\MovieType;
 
 /**
  * Movie controller.
  *
+ * @Route("/admin/movie")
  */
 class MovieController extends Controller
 {
@@ -18,6 +21,9 @@ class MovieController extends Controller
     /**
      * Lists all Movie entities.
      *
+     * @Route("/", name="admin_movie")
+     * @Method("GET")
+     * @Template()
      */
     public function indexAction()
     {
@@ -25,13 +31,16 @@ class MovieController extends Controller
 
         $entities = $em->getRepository('SatoMoviesBundle:Movie')->findAll();
 
-        return $this->render('SatoMoviesBundle:Movie:index.html.twig', array(
+        return array(
             'entities' => $entities,
-        ));
+        );
     }
     /**
      * Creates a new Movie entity.
      *
+     * @Route("/", name="admin_movie_create")
+     * @Method("POST")
+     * @Template("SatoMoviesBundle:Movie:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -47,10 +56,10 @@ class MovieController extends Controller
             return $this->redirect($this->generateUrl('admin_movie_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('SatoMoviesBundle:Movie:new.html.twig', array(
+        return array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        ));
+        );
     }
 
     /**
@@ -75,21 +84,27 @@ class MovieController extends Controller
     /**
      * Displays a form to create a new Movie entity.
      *
+     * @Route("/new", name="admin_movie_new")
+     * @Method("GET")
+     * @Template()
      */
     public function newAction()
     {
         $entity = new Movie();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('SatoMoviesBundle:Movie:new.html.twig', array(
+        return array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        ));
+        );
     }
 
     /**
      * Finds and displays a Movie entity.
      *
+     * @Route("/{id}", name="admin_movie_show")
+     * @Method("GET")
+     * @Template()
      */
     public function showAction($id)
     {
@@ -103,15 +118,18 @@ class MovieController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('SatoMoviesBundle:Movie:show.html.twig', array(
+        return array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
      * Displays a form to edit an existing Movie entity.
      *
+     * @Route("/{id}/edit", name="admin_movie_edit")
+     * @Method("GET")
+     * @Template()
      */
     public function editAction($id)
     {
@@ -126,11 +144,11 @@ class MovieController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('SatoMoviesBundle:Movie:edit.html.twig', array(
+        return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
@@ -154,6 +172,9 @@ class MovieController extends Controller
     /**
      * Edits an existing Movie entity.
      *
+     * @Route("/{id}", name="admin_movie_update")
+     * @Method("PUT")
+     * @Template("SatoMoviesBundle:Movie:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -175,15 +196,17 @@ class MovieController extends Controller
             return $this->redirect($this->generateUrl('admin_movie_edit', array('id' => $id)));
         }
 
-        return $this->render('SatoMoviesBundle:Movie:edit.html.twig', array(
+        return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
     /**
      * Deletes a Movie entity.
      *
+     * @Route("/{id}", name="admin_movie_delete")
+     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {

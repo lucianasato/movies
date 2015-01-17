@@ -17,6 +17,7 @@ class MovieType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
+            ->add('country_id')
         ;
     }
     
