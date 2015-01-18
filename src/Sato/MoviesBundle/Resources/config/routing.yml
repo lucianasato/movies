@@ -13,3 +13,7 @@ sato_movies_admin_director:
 sato_movies_homepage:
     path:     /
     defaults: { _controller: SatoMoviesBundle:Default:index }
+
+sato_movies_admin_homepage:
+    path:     /admin
+    defaults: { _controller: SatoMoviesBundle:Admin:index }
