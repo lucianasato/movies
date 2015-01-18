@@ -1,11 +1,11 @@
-{% extends '::base.html.twig' %}
+{% extends '::base_admin.html.twig' %}
 
 {% block body -%}
-	<h1>Movie list</h1>
-	<span class="badge">{{ entities.getTotalItemCount }}</span> registros
+	<h1 class="page-header">Movie list</h1>
 	<a class="btn btn-primary" href="{{ path('admin_movie_new') }}">
 		New Movie
 	</a>
+	<span class="badge">{{ entities.getTotalItemCount }}</span> rows
 	<table class="records_list table">
 		<thead>
 			<tr>

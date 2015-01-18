@@ -1,8 +1,11 @@
-{% extends '::base.html.twig' %}
+{% extends '::base_admin.html.twig' %}
 
 {% block body -%}
-	<h1>Director list</h1>
-
+	<h1 class="page-header">Director list</h1>
+	<a class="btn btn-primary" href="{{ path('admin_director_new') }}">
+		New Director
+	</a>
+	<span class="badge">{{ entities.getTotalItemCount }}</span> rows
 	<table class="records_list table">
 		<thead>
 			<tr>
@@ -30,12 +33,4 @@
 		{% endfor %}
 		</tbody>
 	</table>
-
-		<ul>
-		<li>
-			<a href="{{ path('admin_director_new') }}">
-				Create a new entry
-			</a>
-		</li>
-	</ul>
-	{% endblock %}
+{% endblock %}
