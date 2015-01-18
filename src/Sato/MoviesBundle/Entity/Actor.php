@@ -57,7 +57,6 @@ class Actor
         return $this->name ;
     }
 
-
     /**
      * Get id
      *

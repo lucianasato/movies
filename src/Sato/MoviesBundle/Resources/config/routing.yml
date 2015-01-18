@@ -2,6 +2,10 @@ sato_movies_admin_movie:
     resource: "@SatoMoviesBundle/Resources/config/routing/movie.yml"
     prefix:   /admin/movie
 
+sato_movies_admin_actor:
+    resource: "@SatoMoviesBundle/Resources/config/routing/actor.yml"
+    prefix:   /admin/actor
+
 sato_movies_homepage:
     path:     /
     defaults: { _controller: SatoMoviesBundle:Default:index }

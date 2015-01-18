@@ -8,6 +8,10 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('SatoMoviesBundle:Default:index.html.twig');
+    	$entity_manager = $this->getDoctrine()->getManager();
+    	$movies = $entity_manager->getRepository('SatoMoviesBundle:Movie')->findAll();
+        return $this->render('SatoMoviesBundle:Default:index.html.twig', array(
+        	'movies' => $movies
+        ));
     }
 }

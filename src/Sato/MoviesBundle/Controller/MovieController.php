@@ -17,231 +17,239 @@ use Sato\MoviesBundle\Form\MovieType;
  */
 class MovieController extends Controller
 {
+	/**
+	 * Lists all Movie entities.
+	 *
+	 * @Route("/", name="admin_movie")
+	 * @Method("GET")
+	 * @Template()
+	 */
+	public function indexAction(Request $request)
+	{
+		$em = $this->getDoctrine()->getManager();
+		//$entities = $em->getRepository('SatoMoviesBundle:Movie')->findAll();
+		
+		//$em    = $this->get('doctrine.orm.entity_manager');
+	    $sql   = "SELECT a FROM SatoMoviesBundle:Movie a";
+		$query = $em->createQuery($sql);
 
-    /**
-     * Lists all Movie entities.
-     *
-     * @Route("/", name="admin_movie")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
+		$paginator  = $this->get('knp_paginator');
+		$pagination = $paginator->paginate(
+			$query,
+			$request->query->get('page', 1),
+			5 #limit per page
+		);
+		return array(
+			'entities' => $pagination,
+		);
+	}
+	/**
+	 * Creates a new Movie entity.
+	 *
+	 * @Route("/", name="admin_movie_create")
+	 * @Method("POST")
+	 * @Template("SatoMoviesBundle:Movie:new.html.twig")
+	 */
+	public function createAction(Request $request)
+	{
+		$entity = new Movie();
+		$form = $this->createCreateForm($entity);
+		$form->handleRequest($request);
 
-        $entities = $em->getRepository('SatoMoviesBundle:Movie')->findAll();
+		if ($form->isValid()) {
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($entity);
+			$em->flush();
 
-        return array(
-            'entities' => $entities,
-        );
-    }
-    /**
-     * Creates a new Movie entity.
-     *
-     * @Route("/", name="admin_movie_create")
-     * @Method("POST")
-     * @Template("SatoMoviesBundle:Movie:new.html.twig")
-     */
-    public function createAction(Request $request)
-    {
-        $entity = new Movie();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
+			return $this->redirect($this->generateUrl('admin_movie_show', array('id' => $entity->getId())));
+		}
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+		return array(
+			'entity' => $entity,
+			'form'   => $form->createView(),
+		);
+	}
 
-            return $this->redirect($this->generateUrl('admin_movie_show', array('id' => $entity->getId())));
-        }
+	/**
+	 * Creates a form to create a Movie entity.
+	 *
+	 * @param Movie $entity The entity
+	 *
+	 * @return \Symfony\Component\Form\Form The form
+	 */
+	private function createCreateForm(Movie $entity)
+	{
+		$form = $this->createForm(new MovieType(), $entity, array(
+			'action' => $this->generateUrl('admin_movie_create'),
+			'method' => 'POST',
+		));
 
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
+		$form->add('submit', 'submit', array('label' => 'Create'));
 
-    /**
-     * Creates a form to create a Movie entity.
-     *
-     * @param Movie $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(Movie $entity)
-    {
-        $form = $this->createForm(new MovieType(), $entity, array(
-            'action' => $this->generateUrl('admin_movie_create'),
-            'method' => 'POST',
-        ));
+		return $form;
+	}
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+	/**
+	 * Displays a form to create a new Movie entity.
+	 *
+	 * @Route("/new", name="admin_movie_new")
+	 * @Method("GET")
+	 * @Template()
+	 */
+	public function newAction()
+	{
+		$entity = new Movie();
+		$form   = $this->createCreateForm($entity);
 
-        return $form;
-    }
+		return array(
+			'entity' => $entity,
+			'form'   => $form->createView(),
+		);
+	}
 
-    /**
-     * Displays a form to create a new Movie entity.
-     *
-     * @Route("/new", name="admin_movie_new")
-     * @Method("GET")
-     * @Template()
-     */
-    public function newAction()
-    {
-        $entity = new Movie();
-        $form   = $this->createCreateForm($entity);
+	/**
+	 * Finds and displays a Movie entity.
+	 *
+	 * @Route("/{id}", name="admin_movie_show")
+	 * @Method("GET")
+	 * @Template()
+	 */
+	public function showAction($id)
+	{
+		$em = $this->getDoctrine()->getManager();
 
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
+		$entity = $em->getRepository('SatoMoviesBundle:Movie')->find($id);
 
-    /**
-     * Finds and displays a Movie entity.
-     *
-     * @Route("/{id}", name="admin_movie_show")
-     * @Method("GET")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
+		if (!$entity) {
+			throw $this->createNotFoundException('Unable to find Movie entity.');
+		}
 
-        $entity = $em->getRepository('SatoMoviesBundle:Movie')->find($id);
+		$deleteForm = $this->createDeleteForm($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Movie entity.');
-        }
+		return array(
+			'entity'      => $entity,
+			'delete_form' => $deleteForm->createView(),
+		);
+	}
 
-        $deleteForm = $this->createDeleteForm($id);
+	/**
+	 * Displays a form to edit an existing Movie entity.
+	 *
+	 * @Route("/{id}/edit", name="admin_movie_edit")
+	 * @Method("GET")
+	 * @Template()
+	 */
+	public function editAction($id)
+	{
+		$em = $this->getDoctrine()->getManager();
 
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
+		$entity = $em->getRepository('SatoMoviesBundle:Movie')->find($id);
 
-    /**
-     * Displays a form to edit an existing Movie entity.
-     *
-     * @Route("/{id}/edit", name="admin_movie_edit")
-     * @Method("GET")
-     * @Template()
-     */
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
+		if (!$entity) {
+			throw $this->createNotFoundException('Unable to find Movie entity.');
+		}
 
-        $entity = $em->getRepository('SatoMoviesBundle:Movie')->find($id);
+		$editForm = $this->createEditForm($entity);
+		$deleteForm = $this->createDeleteForm($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Movie entity.');
-        }
+		return array(
+			'entity'      => $entity,
+			'edit_form'   => $editForm->createView(),
+			'delete_form' => $deleteForm->createView(),
+		);
+	}
 
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+	/**
+	* Creates a form to edit a Movie entity.
+	*
+	* @param Movie $entity The entity
+	*
+	* @return \Symfony\Component\Form\Form The form
+	*/
+	private function createEditForm(Movie $entity)
+	{
+		$form = $this->createForm(new MovieType(), $entity, array(
+			'action' => $this->generateUrl('admin_movie_update', array('id' => $entity->getId())),
+			'method' => 'PUT',
+		));
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
+		$form->add('submit', 'submit', array('label' => 'Update'));
 
-    /**
-    * Creates a form to edit a Movie entity.
-    *
-    * @param Movie $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Movie $entity)
-    {
-        $form = $this->createForm(new MovieType(), $entity, array(
-            'action' => $this->generateUrl('admin_movie_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+		return $form;
+	}
+	/**
+	 * Edits an existing Movie entity.
+	 *
+	 * @Route("/{id}", name="admin_movie_update")
+	 * @Method("PUT")
+	 * @Template("SatoMoviesBundle:Movie:edit.html.twig")
+	 */
+	public function updateAction(Request $request, $id)
+	{
+		$em = $this->getDoctrine()->getManager();
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+		$entity = $em->getRepository('SatoMoviesBundle:Movie')->find($id);
 
-        return $form;
-    }
-    /**
-     * Edits an existing Movie entity.
-     *
-     * @Route("/{id}", name="admin_movie_update")
-     * @Method("PUT")
-     * @Template("SatoMoviesBundle:Movie:edit.html.twig")
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
+		if (!$entity) {
+			throw $this->createNotFoundException('Unable to find Movie entity.');
+		}
 
-        $entity = $em->getRepository('SatoMoviesBundle:Movie')->find($id);
+		$deleteForm = $this->createDeleteForm($id);
+		$editForm = $this->createEditForm($entity);
+		$editForm->handleRequest($request);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Movie entity.');
-        }
+		if ($editForm->isValid()) {
+			$em->flush();
 
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
+			return $this->redirect($this->generateUrl('admin_movie_edit', array('id' => $id)));
+		}
 
-        if ($editForm->isValid()) {
-            $em->flush();
+		return array(
+			'entity'      => $entity,
+			'edit_form'   => $editForm->createView(),
+			'delete_form' => $deleteForm->createView(),
+		);
+	}
+	/**
+	 * Deletes a Movie entity.
+	 *
+	 * @Route("/{id}", name="admin_movie_delete")
+	 * @Method("DELETE")
+	 */
+	public function deleteAction(Request $request, $id)
+	{
+		$form = $this->createDeleteForm($id);
+		$form->handleRequest($request);
 
-            return $this->redirect($this->generateUrl('admin_movie_edit', array('id' => $id)));
-        }
+		if ($form->isValid()) {
+			$em = $this->getDoctrine()->getManager();
+			$entity = $em->getRepository('SatoMoviesBundle:Movie')->find($id);
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-    /**
-     * Deletes a Movie entity.
-     *
-     * @Route("/{id}", name="admin_movie_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+			if (!$entity) {
+				throw $this->createNotFoundException('Unable to find Movie entity.');
+			}
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('SatoMoviesBundle:Movie')->find($id);
+			$em->remove($entity);
+			$em->flush();
+		}
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Movie entity.');
-            }
+		return $this->redirect($this->generateUrl('admin_movie'));
+	}
 
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('admin_movie'));
-    }
-
-    /**
-     * Creates a form to delete a Movie entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_movie_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
-    }
+	/**
+	 * Creates a form to delete a Movie entity by id.
+	 *
+	 * @param mixed $id The entity id
+	 *
+	 * @return \Symfony\Component\Form\Form The form
+	 */
+	private function createDeleteForm($id)
+	{
+		return $this->createFormBuilder()
+			->setAction($this->generateUrl('admin_movie_delete', array('id' => $id)))
+			->setMethod('DELETE')
+			->add('submit', 'submit', array('label' => 'Delete'))
+			->getForm()
+		;
+	}
 }
