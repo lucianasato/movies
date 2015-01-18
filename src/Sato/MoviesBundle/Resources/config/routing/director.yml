@@ -1,0 +1,30 @@
+admin_director:
+    path:     /
+    defaults: { _controller: "SatoMoviesBundle:Director:index" }
+
+admin_director_show:
+    path:     /{id}/show
+    defaults: { _controller: "SatoMoviesBundle:Director:show" }
+
+admin_director_new:
+    path:     /new
+    defaults: { _controller: "SatoMoviesBundle:Director:new" }
+
+admin_director_create:
+    path:     /create
+    defaults: { _controller: "SatoMoviesBundle:Director:create" }
+    requirements: { _method: post }
+
+admin_director_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SatoMoviesBundle:Director:edit" }
+
+admin_director_update:
+    path:     /{id}/update
+    defaults: { _controller: "SatoMoviesBundle:Director:update" }
+    requirements: { _method: post|put }
+
+admin_director_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SatoMoviesBundle:Director:delete" }
+    requirements: { _method: post|delete }
