@@ -10,10 +10,14 @@ sato_movies_admin_director:
     resource: "@SatoMoviesBundle/Resources/config/routing/director.yml"
     prefix:   /admin/director
 
+sato_movies_admin_homepage:
+    path:     /admin
+    defaults: { _controller: SatoMoviesBundle:Admin:index }
+
 sato_movies_homepage:
     path:     /
     defaults: { _controller: SatoMoviesBundle:Default:index }
 
-sato_movies_admin_homepage:
-    path:     /admin
-    defaults: { _controller: SatoMoviesBundle:Admin:index }
+sato_movies_contact:
+    path:     /contact
+    defaults: { _controller: SatoMoviesBundle:Default:contact }
