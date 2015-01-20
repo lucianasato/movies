@@ -1,32 +1,48 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
-            {% stylesheets filter='cssrewrite'
-                '%kernel.root_dir%/../vendor/twbs/bootstrap/dist/css/bootstrap.css'
-                '%kernel.root_dir%/../vendor/twbs/bootstrap/dist/css/bootstrap-theme.css'
-            %}
-            <link rel="stylesheet" href="{{ asset_url }}" />
-            <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
-            <link rel="stylesheet" href="{{ asset('css/admin.css') }}" />
-            {% endstylesheets %}
-        {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        
-        <div class="container">
-            {% block body %}{% endblock %}
-        </div>
-        {% block javascripts %}
-        {% javascripts
-                '%kernel.root_dir%/../vendor/components/jquery/jquery.js'
-                '%kernel.root_dir%/../vendor/twbs/bootstrap/dist/js/bootstrap.js'
-            %}
-            <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-        {% endblock %}
-    </body>
+	<head>
+		<meta charset="UTF-8" />
+		<title>{% block title %}Movies!{% endblock %}</title>
+		{% block stylesheets %}
+			{% stylesheets filter='cssrewrite'
+				'%kernel.root_dir%/../vendor/twbs/bootstrap/dist/css/bootstrap.css'
+				'%kernel.root_dir%/../vendor/twbs/bootstrap/dist/css/bootstrap-theme.css'
+			%}
+			<link rel="stylesheet" href="{{ asset_url }}" />
+			{% endstylesheets %}
+		{% endblock %}
+
+		<link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+		<link rel="stylesheet" href="{{ asset('css/admin.css') }}" />
+		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+	</head>
+	<body>
+		<div class="blog-masthead">
+		  	<div class="container">
+				<nav class="blog-nav">
+					<a class="blog-nav-item active" href="#">Home</a>
+					<a class="blog-nav-item" href="#">Movies</a>
+					<a class="blog-nav-item" href="#">Series</a>
+					<a class="blog-nav-item" href="#">About</a>
+				</nav>
+			</div>
+		</div>
+		<div class="container">
+			{% block body %}{% endblock %}
+		</div>
+		<footer class="blog-footer">
+			<p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+			<p>
+				<a href="#">Back to top</a>
+			</p>
+		</footer>
+		{% block javascripts %}
+		{% javascripts
+				'%kernel.root_dir%/../vendor/components/jquery/jquery.js'
+				'%kernel.root_dir%/../vendor/twbs/bootstrap/dist/js/bootstrap.js'
+			%}
+			<script src="{{ asset_url }}"></script>
+			{% endjavascripts %}
+		{% endblock %}
+	</body>
 </html>

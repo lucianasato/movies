@@ -3,6 +3,8 @@
 namespace Sato\MoviesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection ;
 
 /**
  * Actor
@@ -24,13 +26,13 @@ class Actor
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var \DateTime
-     *
      * @ORM\Column(name="birthdate", type="date")
      */
     private $birthdate;
