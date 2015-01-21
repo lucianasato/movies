@@ -12,7 +12,7 @@ class DefaultController extends Controller
 	{
 		$entity_manager = $this->getDoctrine()->getManager();
 		$movies = $entity_manager->getRepository('SatoMoviesBundle:Movie')->findAll();
-		
+
 		return $this->render('SatoMoviesBundle:Default:index.html.twig', array(
 			'movies' => $movies
 		));
@@ -20,18 +20,27 @@ class DefaultController extends Controller
 
 	public function contactAction(Request $request)
 	{
-        $contact = new Contact();
-        $contact->setName('Luciana');
-        $contact->setMessage('Message');
+		$valid = false ;
+		$contact = new Contact();
+		
+		$form = $this->createFormBuilder($contact)
+			->add('name', 'text')
+			->add('email', 'email')
+			->add('message', 'textarea')
+			->add('save', 'submit', array('label' => 'Send'))
+			->getForm();
 
-        $form = $this->createFormBuilder($contact)
-            ->add('name', 'text')
-            ->add('message', 'text')
-            ->add('save', 'submit', array('label' => 'Send'))
-            ->getForm();
+		$form->handleRequest($request);
 
-        return $this->render('SatoMoviesBundle:Default:contact.html.twig', array(
-            'form' => $form->createView(),
-        ));
+		if ($form->isValid()) {
+			// TODO: perform some action, such as saving the contact to the database
+			
+			$valid = true ;
+		}
+
+		return $this->render('SatoMoviesBundle:Default:contact.html.twig', array(
+			'form' => $form->createView(),
+			'valid' => $valid ,
+		));
 	}
 }
