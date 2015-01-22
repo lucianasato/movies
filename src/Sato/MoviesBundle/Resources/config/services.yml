@@ -2,3 +2,7 @@ services:
 #    sato_movies.example:
 #        class: Sato\MoviesBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+    sato_movies.listener:
+        class: Sato\MoviesBundle\Contact
+        tags:
+            - { name: setCreatedAtValue, event: prePersist }

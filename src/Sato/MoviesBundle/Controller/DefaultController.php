@@ -2,9 +2,13 @@
 
 namespace Sato\MoviesBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sato\MoviesBundle\Entity\Contact;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sato\MoviesBundle\Entity\Contact;
+use Sato\MoviesBundle\Form\ContactType;
 
 class DefaultController extends Controller
 {
@@ -18,29 +22,39 @@ class DefaultController extends Controller
 		));
 	}
 
+	/**
+	 * Creates a new Contact entity.
+	 *
+	 * @Route("/", name="sato_movies_contact")
+	 * @Method({"GET", "POST"})
+	 * @Template("SatoMoviesBundle:Default:contact.html.twig")
+	 */
 	public function contactAction(Request $request)
 	{
-		$valid = false ;
-		$contact = new Contact();
-		
-		$form = $this->createFormBuilder($contact)
-			->add('name', 'text')
-			->add('email', 'email')
-			->add('message', 'textarea')
-			->add('save', 'submit', array('label' => 'Send'))
-			->getForm();
+		$entity = new Contact();
+		$form = $this->createForm(new ContactType(), $entity, array(
+			'action' => $this->generateUrl('sato_movies_contact'),
+			'method' => 'POST',
+		));
 
 		$form->handleRequest($request);
 
 		if ($form->isValid()) {
-			// TODO: perform some action, such as saving the contact to the database
-			
-			$valid = true ;
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($entity);
+			$em->flush();
+
+			return $this->redirect($this->generateUrl('sato_movies_contact'));
 		}
 
-		return $this->render('SatoMoviesBundle:Default:contact.html.twig', array(
-			'form' => $form->createView(),
-			'valid' => $valid ,
-		));
+		return array(
+			'entity' => $entity,
+			'form'   => $form->createView(),
+		);
+	}
+
+	public function aboutAction()
+	{
+		echo "ABOUT" ;
 	}
 }
