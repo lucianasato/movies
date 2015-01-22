@@ -1,3 +1,7 @@
+sato_movies_admin_distributor:
+    resource: "@SatoMoviesBundle/Resources/config/routing/distributor.yml"
+    prefix:   /admin/distributor
+
 sato_movies_admin_movie:
     resource: "@SatoMoviesBundle/Resources/config/routing/movie.yml"
     prefix:   /admin/movie

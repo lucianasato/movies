@@ -1,15 +1,16 @@
 {% extends '::base_admin.html.twig' %}
 
 {% block body -%}
-    <h1>Actor creation</h1>
+    <h1>Distributor edit</h1>
 
-    {{ form(form) }}
+    {{ form(edit_form) }}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('admin_actor') }}">
+        <a href="{{ path('admin_distributor') }}">
             Back to the list
         </a>
     </li>
+    <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}

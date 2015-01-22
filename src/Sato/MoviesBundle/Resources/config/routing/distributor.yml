@@ -1,0 +1,30 @@
+admin_distributor:
+    path:     /
+    defaults: { _controller: "SatoMoviesBundle:Distributor:index" }
+
+admin_distributor_show:
+    path:     /{id}/show
+    defaults: { _controller: "SatoMoviesBundle:Distributor:show" }
+
+admin_distributor_new:
+    path:     /new
+    defaults: { _controller: "SatoMoviesBundle:Distributor:new" }
+
+admin_distributor_create:
+    path:     /create
+    defaults: { _controller: "SatoMoviesBundle:Distributor:create" }
+    requirements: { _method: post }
+
+admin_distributor_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SatoMoviesBundle:Distributor:edit" }
+
+admin_distributor_update:
+    path:     /{id}/update
+    defaults: { _controller: "SatoMoviesBundle:Distributor:update" }
+    requirements: { _method: post|put }
+
+admin_distributor_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SatoMoviesBundle:Distributor:delete" }
+    requirements: { _method: post|delete|get }
