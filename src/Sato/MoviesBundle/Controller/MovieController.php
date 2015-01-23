@@ -28,9 +28,6 @@ class MovieController extends Controller
 	public function indexAction(Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
-		//$entities = $em->getRepository('SatoMoviesBundle:Movie')->findAll();
-		
-		//$em    = $this->get('doctrine.orm.entity_manager');
 		$sql   = "SELECT a FROM SatoMoviesBundle:Movie a";
 		$query = $em->createQuery($sql);
 
