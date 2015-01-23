@@ -16,7 +16,6 @@ class GenreType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('movies')
         ;
     }
     
