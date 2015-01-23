@@ -29,7 +29,7 @@ class ContactController extends Controller
 	{
 		$em = $this->getDoctrine()->getManager();
 
-		$sql   = "SELECT a FROM SatoMoviesBundle:Contact a";
+		$sql   = "SELECT a FROM SatoMoviesBundle:Contact a ORDER BY a.id desc";
 		$query = $em->createQuery($sql);
 
 		$paginator  = $this->get('knp_paginator');
