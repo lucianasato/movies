@@ -140,6 +140,13 @@ class Contact
     public function setCreatedAtValue()
     {
         $this->createdAt = new \DateTime();
+
+        return $this->createdAt ;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt ;
     }
 
 }

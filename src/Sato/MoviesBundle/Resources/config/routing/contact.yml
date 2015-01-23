@@ -1,0 +1,10 @@
+admin_contact:
+    path:     /
+    defaults: { _controller: "SatoMoviesBundle:Contact:index" }
+
+admin_contact_show:
+    path:     /{id}/show
+    defaults: { _controller: "SatoMoviesBundle:Contact:show" }
+
+
+
