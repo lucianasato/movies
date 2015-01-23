@@ -1,3 +1,7 @@
+sato_movies_admin_genre:
+    resource: "@SatoMoviesBundle/Resources/config/routing/genre.yml"
+    prefix:   /admin/genre
+
 sato_movies_admin_contact:
     resource: "@SatoMoviesBundle/Resources/config/routing/contact.yml"
     prefix:   /admin/contact

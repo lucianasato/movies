@@ -5,12 +5,12 @@ namespace Sato\MoviesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Director
+ * Genre
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Director
+class Genre
 {
 	/**
 	 * @var integer
@@ -29,22 +29,8 @@ class Director
 	private $name;
 
 	/**
-	 * @var \DateTime
-	 *
-	 * @ORM\Column(name="birthdate", type="date")
-	 */
-	private $birthdate;
-
-	/**
-	 * @var integer
-	 *
-	 * @ORM\Column(name="country_id", type="integer")
-	 */
-	private $countryId;
-
-	/**
-	 * @ORM\ManyToMany(targetEntity="Movie", mappedBy="directors")
-	 * @ORM\JoinTable(name="movies_directors")
+	 * @ORM\ManyToMany(targetEntity="Movie", mappedBy="genres")
+	 * @ORM\JoinTable(name="movies_genres")
 	 */
 	private $movies;
 
@@ -55,7 +41,6 @@ class Director
 	public function __toString() {
 		return $this->name ;
 	}
-
 
 	/**
 	 * Get id
@@ -71,7 +56,7 @@ class Director
 	 * Set name
 	 *
 	 * @param string $name
-	 * @return Director
+	 * @return Genre
 	 */
 	public function setName($name)
 	{
@@ -91,56 +76,10 @@ class Director
 	}
 
 	/**
-	 * Set birthdate
-	 *
-	 * @param \DateTime $birthdate
-	 * @return Director
-	 */
-	public function setBirthdate($birthdate)
-	{
-		$this->birthdate = $birthdate;
-
-		return $this;
-	}
-
-	/**
-	 * Get birthdate
-	 *
-	 * @return \DateTime 
-	 */
-	public function getBirthdate()
-	{
-		return $this->birthdate;
-	}
-
-	/**
-	 * Set countryId
-	 *
-	 * @param integer $countryId
-	 * @return Director
-	 */
-	public function setCountryId($countryId)
-	{
-		$this->countryId = $countryId;
-
-		return $this;
-	}
-
-	/**
-	 * Get countryId
-	 *
-	 * @return integer 
-	 */
-	public function getCountryId()
-	{
-		return $this->countryId;
-	}
-
-	/**
 	 * Add movies
 	 *
 	 * @param \Sato\MoviesBundle\Entity\Movie $movies
-	 * @return Director
+	 * @return Genre
 	 */
 	public function addMovie(\Sato\MoviesBundle\Entity\Movie $movies)
 	{

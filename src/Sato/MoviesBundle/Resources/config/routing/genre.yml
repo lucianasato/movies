@@ -1,0 +1,30 @@
+admin_genre:
+    path:     /
+    defaults: { _controller: "SatoMoviesBundle:Genre:index" }
+
+admin_genre_show:
+    path:     /{id}/show
+    defaults: { _controller: "SatoMoviesBundle:Genre:show" }
+
+admin_genre_new:
+    path:     /new
+    defaults: { _controller: "SatoMoviesBundle:Genre:new" }
+
+admin_genre_create:
+    path:     /create
+    defaults: { _controller: "SatoMoviesBundle:Genre:create" }
+    requirements: { _method: post }
+
+admin_genre_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "SatoMoviesBundle:Genre:edit" }
+
+admin_genre_update:
+    path:     /{id}/update
+    defaults: { _controller: "SatoMoviesBundle:Genre:update" }
+    requirements: { _method: post|put }
+
+admin_genre_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "SatoMoviesBundle:Genre:delete" }
+    requirements: { _method: post|delete }

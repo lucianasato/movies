@@ -63,9 +63,16 @@ class Movie
 	 **/
 	private $directors ;
 
+	/**
+	 * @ORM\ManyToMany(targetEntity="Genre", inversedBy="movies")
+	 * @ORM\JoinTable(name="movies_genres")
+	 **/
+	private $genres ;
+
 	public function __construct() {
 		$this->actors = new ArrayCollection();
 		$this->directors = new ArrayCollection();
+		$this->genres = new ArrayCollection();
 	}
 
 	public function __toString() {
@@ -174,69 +181,102 @@ class Movie
 		return $this->distributor_id;
 	}
 
-    /**
-     * Add actors
-     *
-     * @param \Sato\MoviesBundle\Entity\Actor $actors
-     * @return Movie
-     */
-    public function addActor(\Sato\MoviesBundle\Entity\Actor $actors)
-    {
-        $this->actors[] = $actors;
+	/**
+	 * Add actors
+	 *
+	 * @param \Sato\MoviesBundle\Entity\Actor $actors
+	 * @return Movie
+	 */
+	public function addActor(\Sato\MoviesBundle\Entity\Actor $actors)
+	{
+		$this->actors[] = $actors;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Remove actors
-     *
-     * @param \Sato\MoviesBundle\Entity\Actor $actors
-     */
-    public function removeActor(\Sato\MoviesBundle\Entity\Actor $actors)
-    {
-        $this->actors->removeElement($actors);
-    }
+	/**
+	 * Remove actors
+	 *
+	 * @param \Sato\MoviesBundle\Entity\Actor $actors
+	 */
+	public function removeActor(\Sato\MoviesBundle\Entity\Actor $actors)
+	{
+		$this->actors->removeElement($actors);
+	}
 
-    /**
-     * Get actors
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getActors()
-    {
-        return $this->actors;
-    }
+	/**
+	 * Get actors
+	 *
+	 * @return \Doctrine\Common\Collections\Collection 
+	 */
+	public function getActors()
+	{
+		return $this->actors;
+	}
 
-    /**
-     * Add directors
-     *
-     * @param \Sato\MoviesBundle\Entity\Director $directors
-     * @return Movie
-     */
-    public function addDirector(\Sato\MoviesBundle\Entity\Director $directors)
-    {
-        $this->directors[] = $directors;
+	/**
+	 * Add directors
+	 *
+	 * @param \Sato\MoviesBundle\Entity\Director $directors
+	 * @return Movie
+	 */
+	public function addDirector(\Sato\MoviesBundle\Entity\Director $directors)
+	{
+		$this->directors[] = $directors;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Remove directors
-     *
-     * @param \Sato\MoviesBundle\Entity\Director $directors
-     */
-    public function removeDirector(\Sato\MoviesBundle\Entity\Director $directors)
-    {
-        $this->directors->removeElement($directors);
-    }
+	/**
+	 * Remove directors
+	 *
+	 * @param \Sato\MoviesBundle\Entity\Director $directors
+	 */
+	public function removeDirector(\Sato\MoviesBundle\Entity\Director $directors)
+	{
+		$this->directors->removeElement($directors);
+	}
 
-    /**
-     * Get directors
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDirectors()
-    {
-        return $this->directors;
-    }
+	/**
+	 * Get directors
+	 *
+	 * @return \Doctrine\Common\Collections\Collection 
+	 */
+	public function getDirectors()
+	{
+		return $this->directors;
+	}
+
+	/**
+	 * Add genres
+	 *
+	 * @param \Sato\MoviesBundle\Entity\Genre $genres
+	 * @return Movie
+	 */
+	public function addGenre(\Sato\MoviesBundle\Entity\Genre $genres)
+	{
+		$this->genres[] = $genres;
+
+		return $this;
+	}
+
+	/**
+	 * Remove genres
+	 *
+	 * @param \Sato\MoviesBundle\Entity\Genre $genres
+	 */
+	public function removeGenre(\Sato\MoviesBundle\Entity\Genre $genres)
+	{
+		$this->genres->removeElement($genres);
+	}
+
+	/**
+	 * Get genres
+	 *
+	 * @return \Doctrine\Common\Collections\Collection 
+	 */
+	public function getGenres()
+	{
+		return $this->genres;
+	}
 }

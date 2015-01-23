@@ -27,8 +27,13 @@ class MovieType extends AbstractType
 			->add('directors', null, array('required' => false,
 				'multiple' => true,
 				'expanded' => true,
+				)
 			)
-		);
+			->add('genres', null, array('required' => false,
+				'multiple' => true,
+				'expanded' => true,
+				)
+			);
 	}
 	
 	/**
