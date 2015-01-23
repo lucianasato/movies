@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sato\MoviesBundle\Entity\Movie;
 use Sato\MoviesBundle\Form\MovieType;
 
@@ -30,7 +31,7 @@ class MovieController extends Controller
 		//$entities = $em->getRepository('SatoMoviesBundle:Movie')->findAll();
 		
 		//$em    = $this->get('doctrine.orm.entity_manager');
-	    $sql   = "SELECT a FROM SatoMoviesBundle:Movie a";
+		$sql   = "SELECT a FROM SatoMoviesBundle:Movie a";
 		$query = $em->createQuery($sql);
 
 		$paginator  = $this->get('knp_paginator');
@@ -251,5 +252,31 @@ class MovieController extends Controller
 			->add('submit', 'submit', array('label' => 'Delete'))
 			->getForm()
 		;
+	}
+
+	/**
+	 * Export data.
+	 *
+	 * @Route("/", name="admin_movie_export")
+	 * @Method("GET")
+	 */
+	public function exportAction()
+	{
+		$repository = $this->getDoctrine()->getRepository('SatoMoviesBundle:Movie'); 
+		$query = $repository->createQueryBuilder('m'); 
+		$query->orderBy('m.id', 'ASC'); 
+
+		$data = $query->getQuery()->getResult(); $filename = "export_".date("Y_m_d_His").".csv"; 
+		$response = $this->render('SatoMoviesBundle:Movie:export.html.twig', array('data' => $data)); 
+
+		$response->setStatusCode(200);
+		$response->headers->set('Content-Type', 'text/csv');
+		$response->headers->set('Content-Description', 'Submissions Export');
+		$response->headers->set('Content-Disposition', 'attachment; filename='.$filename);
+		$response->headers->set('Content-Transfer-Encoding', 'binary');
+		$response->headers->set('Pragma', 'no-cache');
+		$response->headers->set('Expires', '0');
+		
+		return $response; 
 	}
 }

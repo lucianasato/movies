@@ -28,3 +28,8 @@ admin_movie_delete:
     path:     /{id}/delete
     defaults: { _controller: "SatoMoviesBundle:Movie:delete" }
     requirements: { _method: post|delete }
+
+admin_movie_export:
+    path:     /export
+    defaults: { _controller: "SatoMoviesBundle:Movie:export" }
+    requirements: { _method: get }
