@@ -2,24 +2,20 @@
 
 {% block body %}
 	<div class="blog-header">
-		<h1 class="blog-title">The Bootstrap Blog</h1>
-		<p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
+		<h1 class="blog-title">Movies!</h1>
 	</div>
 	<div class="row">
 		<div class="col-sm-8 blog-main">
 			{% for movie in movies %}
 				<div class="blog-post">
 					<h2 class="blog-post-title">{{ movie.title }}</h2>
-					<p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
 					<p>{{ movie.description|slice(0,25) }}...<a href="{{ path('sato_movies_homepage') }}">read more</a></p>
 				</div>
 			{% endfor %}
-			<nav>
-				<ul class="pager">
-					<li><a href="#">Previous</a></li>
-					<li><a href="#">Next</a></li>
-				</ul>
-			</nav>
+
+			<div class="navigation">
+				{{ knp_pagination_render(movies) }}
+			</div>
 		</div><!-- /.blog-main -->
 
 		<div class="col-sm-3 col-sm-offset-1 blog-sidebar">

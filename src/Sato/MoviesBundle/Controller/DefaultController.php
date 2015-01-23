@@ -12,14 +12,28 @@ use Sato\MoviesBundle\Form\ContactType;
 
 class DefaultController extends Controller
 {
-	public function indexAction()
+	/**
+	 * Lists Movie entities.
+	 *
+	 * @Route("/", name="admin_movie")
+	 * @Method("GET")
+	 * @Template()
+	 */
+	public function indexAction(Request $request)
 	{
-		$entity_manager = $this->getDoctrine()->getManager();
-		$movies = $entity_manager->getRepository('SatoMoviesBundle:Movie')->findAll();
+		$em = $this->getDoctrine()->getManager();
+		$sql   = "SELECT a FROM SatoMoviesBundle:Movie a ORDER BY a.id DESC";
+		$query = $em->createQuery($sql);
 
-		return $this->render('SatoMoviesBundle:Default:index.html.twig', array(
-			'movies' => $movies
-		));
+		$paginator  = $this->get('knp_paginator');
+		$pagination = $paginator->paginate(
+			$query,
+			$request->query->get('page', 1),
+			5
+		);
+		return array(
+			'movies' => $pagination,
+		);
 	}
 
 	/**
