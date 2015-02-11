@@ -37,7 +37,7 @@ class Actor
      */
     private $birthdate;
 
-     /**
+    /**
      * @var string
      *
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="actors")

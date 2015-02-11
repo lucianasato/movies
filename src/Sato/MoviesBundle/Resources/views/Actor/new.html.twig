@@ -1,0 +1,22 @@
+{% extends '::base_admin.html.twig' %}
+
+{% block body -%}
+	<h1>New Actor</h1>
+	
+
+	{{ form_start(form, {'attr': {'class': 'form-horizontal'} }) }}
+		{{ form_errors(form) }}
+
+		<div class="form-group">
+			{{ form_label(form.name, 'NOME', {'label_attr': {'class': 'control-label col-sm-2 '}}) }}
+			{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+		</div>
+
+		<div>
+			{{ form_label(form.birthdate) }}
+			{{ form_widget(form.birthdate) }}
+		</div>
+
+	{{ form_end(form) }}
+	<a href="{{ path('admin_actor') }}">Back to the list</a>
+{% endblock %}

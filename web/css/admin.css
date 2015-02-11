@@ -104,3 +104,13 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+.navigation {
+  float: right;
+}
+
+.registers {
+  position: absolute;
+  padding: 29px;
+  font-size: 12px;
+}

@@ -6,7 +6,6 @@
 		New Movie
 	</a>
 	<a class="" href="{{ path('admin_movie_export') }}">Export</a>
-	<span class="badge">{{ entities.getTotalItemCount }}</span> rows
 	<table class="records_list table">
 		<thead>
 			<tr>
@@ -32,6 +31,9 @@
 		{% endfor %}
 		</tbody>
 	</table>
+	<div class="registers">
+		{{ entities.getTotalItemCount }} registers found
+	</div>
 	<div class="navigation">
 		{{ knp_pagination_render(entities) }}
 	</div>
