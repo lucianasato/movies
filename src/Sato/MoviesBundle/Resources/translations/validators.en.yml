@@ -1,0 +1,11 @@
+movie:
+    title:
+        not_blank: "Title is required"
+    description:
+        not_blank: "Description is required"
+    actors:
+        count: "Actors are required"
+    directors:
+        count: "Directors are required"
+    genres:
+        count: "Genres are required"

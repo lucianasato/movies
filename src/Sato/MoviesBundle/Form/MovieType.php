@@ -19,6 +19,10 @@ class MovieType extends AbstractType
 			->add('description')
 			->add('country_id')
 			->add('distributor_id')
+			->add('release_date', 'date' , array(
+				'years' => range( date('Y'), date('Y' , strtotime( '-50 years' ) ) ) ,
+				'required' => true ,
+			))
 			->add('actors', null, array('required' => false,
 				'multiple' => true,
 				'expanded' => true,

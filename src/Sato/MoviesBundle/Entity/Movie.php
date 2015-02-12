@@ -4,6 +4,7 @@ namespace Sato\MoviesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection ;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Movie
  *
@@ -25,6 +26,7 @@ class Movie
 	 * @var string
 	 *
 	 * @ORM\Column(name="title", type="string", length=255)
+	 * @Assert\NotBlank(message = "movie.title.not_blank")
 	 */
 	private $title;
 
@@ -32,6 +34,7 @@ class Movie
 	 * @var string
 	 *
 	 * @ORM\Column(name="description", type="text")
+	 * @Assert\NotBlank(message = "movie.description.not_blank")
 	 */
 	private $description;
 
@@ -40,6 +43,8 @@ class Movie
 	 *
 	 * @ORM\ManyToOne(targetEntity="Country", inversedBy="movies")
 	 * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
+	 * 
+	 * @Assert\NotNull()
 	 */
 	private $country_id;
 
@@ -48,24 +53,48 @@ class Movie
 	 *
 	 * @ORM\ManyToOne(targetEntity="Distributor", inversedBy="distributors")
 	 * @ORM\JoinColumn(name="distributor_id", referencedColumnName="id")
+	 * 
+	 * @Assert\NotNull()
 	 */
 	private $distributor_id;
+
+	 /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="release_date", type="date")
+     */
+	private $release_date ;
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="Actor", inversedBy="movies")
 	 * @ORM\JoinTable(name="movies_actors")
+	 * 
+	 * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "movie.actors.count",
+     * )
 	 **/
 	private $actors ;
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="Director", inversedBy="movies")
 	 * @ORM\JoinTable(name="movies_directors")
+	 * 
+	 * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "movie.directors.count",
+     * )
 	 **/
 	private $directors ;
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="Genre", inversedBy="movies")
 	 * @ORM\JoinTable(name="movies_genres")
+	 * 
+	 * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "movie.genres.count",
+     * )
 	 **/
 	private $genres ;
 
@@ -279,4 +308,27 @@ class Movie
 	{
 		return $this->genres;
 	}
+
+    /**
+     * Set release_date
+     *
+     * @param \DateTime $releaseDate
+     * @return Movie
+     */
+    public function setReleaseDate($releaseDate)
+    {
+        $this->release_date = $releaseDate;
+
+        return $this;
+    }
+
+    /**
+     * Get release_date
+     *
+     * @return \DateTime 
+     */
+    public function getReleaseDate()
+    {
+        return $this->release_date;
+    }
 }
