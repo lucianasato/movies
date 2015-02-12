@@ -6,4 +6,5 @@ Projeto de estudo utilizando o framework Symfony 2.
 + Twitter Bootstrap (templates)
 
 Bundles:
-+ KNP Paginator
++ KNP Paginator (paginação)
++ FOSUser (autenticação)
