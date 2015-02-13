@@ -113,4 +113,37 @@ class Country
     {
         return $this->movies;
     }
+
+    /**
+     * Add actors
+     *
+     * @param \Sato\MoviesBundle\Entity\Actor $actors
+     * @return Country
+     */
+    public function addActor(\Sato\MoviesBundle\Entity\Actor $actors)
+    {
+        $this->actors[] = $actors;
+
+        return $this;
+    }
+
+    /**
+     * Remove actors
+     *
+     * @param \Sato\MoviesBundle\Entity\Actor $actors
+     */
+    public function removeActor(\Sato\MoviesBundle\Entity\Actor $actors)
+    {
+        $this->actors->removeElement($actors);
+    }
+
+    /**
+     * Get actors
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getActors()
+    {
+        return $this->actors;
+    }
 }

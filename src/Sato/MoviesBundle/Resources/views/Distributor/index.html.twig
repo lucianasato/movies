@@ -1,12 +1,11 @@
 {% extends '::base_admin.html.twig' %}
 
 {% block body -%}
-	<h1>Distributor list</h1>
+	<h1>Distributors</h1>
 	<a class="btn btn-primary" href="{{ path('admin_distributor_new') }}">
 		New Distributor
 	</a>
-	<span class="badge">{{ entities.getTotalItemCount }}</span> rows
-	<table class="records_list table">
+	<table class="records_list table table-striped table-condensed">
 		<thead>
 			<tr>
 				<th>#</th>
@@ -29,5 +28,10 @@
 		{% endfor %}
 		</tbody>
 	</table>
-
-	{% endblock %}
+	<div class="registers">
+		{{ entities.getTotalItemCount }} registers found
+	</div>
+	<div class="navigation">
+		{{ knp_pagination_render(entities) }}
+	</div>
+{% endblock %}
