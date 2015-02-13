@@ -10,3 +10,7 @@
 /vendor/
 /bin/
 /composer.phar
+
+app/config/config_dev.yml
+
+app/config/config_dev.yml

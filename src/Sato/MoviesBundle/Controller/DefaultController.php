@@ -58,6 +58,18 @@ class DefaultController extends Controller
 			$em->persist($entity);
 			$em->flush();
 
+			$data = $form->getData();
+
+			// Envio de E-mail
+			$message = \Swift_Message::newInstance()
+	            ->setSubject('Hello Email')
+	            ->setFrom('send@example.com')
+	            ->setTo($data->getEmail())
+	            ->setBody('Here is the message itself')
+	            //->setBody($this->renderView('MoviesBundle:Contact:email.txt.twig') )
+	        ;
+	       	$this->get('mailer')->send( $message ) ;
+
 			return $this->redirect($this->generateUrl('sato_movies_contact'));
 		}
 
