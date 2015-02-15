@@ -3,3 +3,7 @@ services:
         class: Sato\MoviesBundle\Contact
         tags:
             - { name: setCreatedAtValue, event: prePersist }
+
+    sato_movies.mailer:
+        class: Sato\MoviesBundle\Mailer\Mailer
+        arguments: [@mailer, @templating]
