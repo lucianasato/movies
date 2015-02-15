@@ -4,10 +4,20 @@
 	<div class="blog-header">
 		<h1 class="blog-title">Contact</h1>
 	</div>
-	
+
+	{% for flashMessage in app.session.flashbag.get('notice') %}
+		<div class="alert alert-danger" role="alert">
+			{{ flashMessage }}
+		</div>
+	{% endfor %}
+	{% for flashMessage in app.session.flashbag.get('success') %}
+		<div class="alert alert-success" role="alert">
+			{{ flashMessage }}
+		</div>
+	{% endfor %}
+
 	<div class="row">
 		<div class="col-sm-8 blog-main">
-			
 
 			{{ form_start(form, {'attr': {'class': 'form-horizontal'} }) }}
 				{{ form_errors(form) }}

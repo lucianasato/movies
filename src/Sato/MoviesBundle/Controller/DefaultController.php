@@ -60,15 +60,12 @@ class DefaultController extends Controller
 
 			$data = $form->getData();
 
-			// Envio de E-mail
-			$message = \Swift_Message::newInstance()
-	            ->setSubject('Hello Email')
-	            ->setFrom('send@example.com')
-	            ->setTo($data->getEmail())
-	            ->setBody('Here is the message itself')
-	            //->setBody($this->renderView('MoviesBundle:Contact:email.txt.twig') )
-	        ;
-	       	$this->get('mailer')->send( $message ) ;
+	       	if ( $this->get('sato_movies.mailer')->sendContactMessage( $data , 'Contact' ) ) {
+	       		$request->getSession()->getFlashBag()->add(
+					'success',
+					'Formulário enviado com sucesso.'
+				);
+	       	}
 
 			return $this->redirect($this->generateUrl('sato_movies_contact'));
 		}
@@ -81,6 +78,6 @@ class DefaultController extends Controller
 
 	public function aboutAction()
 	{
-		echo "ABOUT" ;
+
 	}
 }
