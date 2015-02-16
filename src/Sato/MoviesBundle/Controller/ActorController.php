@@ -251,4 +251,23 @@ class ActorController extends Controller
 			->getForm()
 		;
 	}
+
+	/**
+	 * Export data.
+	 *
+	 * @Route("/", name="admin_actor_export")
+	 * @Method("GET")
+	 */
+	public function exportAction()
+	{
+		$repository = $this->getDoctrine()->getRepository( 'SatoMoviesBundle:Actor' ) ;
+		$query = $repository->createQueryBuilder('m');
+		$query->orderBy('m.id', 'ASC');
+		$data = $query->getQuery()->getResult();
+
+		// Serviço exporter
+		$exporter = $this->get('sato_movies.exporter') ;
+		
+		return $exporter->export( $data , "actor" ) ;
+	}
 }

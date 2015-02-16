@@ -28,3 +28,8 @@ admin_actor_delete:
     path:     /{id}/delete
     defaults: { _controller: "SatoMoviesBundle:Actor:delete" }
     requirements: { _method: post|delete }
+
+admin_actor_export:
+    path:     /export
+    defaults: { _controller: "SatoMoviesBundle:Actor:export" }
+    requirements: { _method: get }

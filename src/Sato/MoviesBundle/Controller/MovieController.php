@@ -263,7 +263,8 @@ class MovieController extends Controller
 		$query = $repository->createQueryBuilder('m'); 
 		$query->orderBy('m.id', 'ASC'); 
 
-		$data = $query->getQuery()->getResult(); $filename = "export_".date("Y_m_d_His").".csv"; 
+		$data = $query->getQuery()->getResult(); 
+		$filename = "export_".date("Y_m_d_His").".csv"; 
 		$response = $this->render('SatoMoviesBundle:Movie:export.html.twig', array('data' => $data)); 
 
 		$response->setStatusCode(200);

@@ -43,7 +43,6 @@ sato_movies_about:
     defaults: { _controller: SatoMoviesBundle:Default:about }
 
 sato_movies_newsletter_save:
-    #path: /newsletter
     pattern:  /insert/newsletter
     defaults: { _controller: SatoMoviesBundle:Newsletter:save }
     requirements: { _method: post }

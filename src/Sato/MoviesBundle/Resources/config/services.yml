@@ -7,3 +7,7 @@ services:
     sato_movies.mailer:
         class: Sato\MoviesBundle\Mailer\Mailer
         arguments: [@mailer, @templating]
+
+    sato_movies.exporter:
+        class: Sato\MoviesBundle\Exporter\Exporter
+        arguments: [@templating]
