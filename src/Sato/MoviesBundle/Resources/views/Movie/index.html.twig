@@ -10,7 +10,7 @@
 		<thead>
 			<tr>
 				<th>#</th>
-				<th>Title</th>
+				<th>{{ knp_pagination_sortable(entities, 'Title', 'a.title' )|raw }}</th>
 				<th>Description</th>
 				<th>Actions</th>
 			</tr>
