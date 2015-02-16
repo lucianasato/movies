@@ -17,7 +17,6 @@ use Sato\MoviesBundle\Form\ActorType;
  */
 class ActorController extends Controller
 {
-
 	/**
 	 * Lists all Actor entities.
 	 *
@@ -38,10 +37,12 @@ class ActorController extends Controller
 			$request->query->get('page', 1),
 			5
 		);
+
 		return array(
 			'entities' => $pagination,
 		);
 	}
+
 	/**
 	 * Creates a new Actor entity.
 	 *
@@ -78,10 +79,7 @@ class ActorController extends Controller
 	 */
 	private function createCreateForm(Actor $entity)
 	{
-		$form = $this->createForm(new ActorType(), $entity, array(
-			'action' => $this->generateUrl('admin_actor_create'),
-			'method' => 'POST',
-		));
+		$form = $this->createForm(new ActorType(), $entity );
 
 		$form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -167,10 +165,7 @@ class ActorController extends Controller
 	*/
 	private function createEditForm(Actor $entity)
 	{
-		$form = $this->createForm(new ActorType(), $entity, array(
-			'action' => $this->generateUrl('admin_actor_update', array('id' => $entity->getId())),
-			'method' => 'PUT',
-		));
+		$form = $this->createForm(new ActorType(), $entity );
 
 		$form->add('submit', 'submit', array('label' => 'Update'));
 

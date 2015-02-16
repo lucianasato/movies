@@ -38,6 +38,12 @@ class Actor
     private $birthdate;
 
     /**
+     * @ORM\OneToOne(targetEntity="Image", cascade={"persist","remove"})
+     * @ORM\JoinColumn(nullable=false)
+     **/
+    private $image ;
+
+    /**
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="actors")
@@ -169,5 +175,26 @@ class Actor
     public function getMovies()
     {
         return $this->movies;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \Sato\MoviesBundle\Entity\Image $image
+     * @return Actor
+     */
+    public function setImage(\Sato\MoviesBundle\Entity\Image $image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+    /**
+     * Get image
+     *
+     * @return \Sato\MoviesBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

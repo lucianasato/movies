@@ -14,3 +14,21 @@
 app/config/config_dev.yml
 
 app/config/config_dev.yml
+
+.idea/.name
+
+.idea/deployment.xml
+
+.idea/encodings.xml
+
+.idea/modules.xml
+
+.idea/movies.iml
+
+.idea/scopes/scope_settings.xml
+
+.idea/vcs.xml
+
+.idea/workspace.xml
+
+web/uploads/*

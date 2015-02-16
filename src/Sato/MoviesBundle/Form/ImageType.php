@@ -5,9 +5,8 @@ namespace Sato\MoviesBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Sato\MoviesBundle\Form\ImageType;
 
-class ActorType extends AbstractType
+class ImageType extends AbstractType
 {
 	/**
 	 * @param FormBuilderInterface $builder
@@ -15,13 +14,9 @@ class ActorType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$builder
-		 	->add('name')
-			->add('birthdate')
-			->add('countryId')
-            ->add('image', new ImageType())
-            ->add('movies')
-		;
+        $builder
+            ->add('file', 'file' , array( 'required' => false ) )
+            ->add('name');
 	}
 	
 	/**
@@ -30,7 +25,7 @@ class ActorType extends AbstractType
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
 		$resolver->setDefaults(array(
-			'data_class' => 'Sato\MoviesBundle\Entity\Actor'
+			'data_class' => 'Sato\MoviesBundle\Entity\Image'
 		));
 	}
 
@@ -39,6 +34,6 @@ class ActorType extends AbstractType
 	 */
 	public function getName()
 	{
-		return 'sato_moviesbundle_actor';
+		return 'sato_moviesbundle_image';
 	}
 }
