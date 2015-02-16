@@ -1,3 +1,7 @@
+sato_movies_admin_newsletter:
+    resource: "@SatoMoviesBundle/Resources/config/routing/newsletter.yml"
+    prefix:   /admin/newsletter
+
 sato_movies_admin_genre:
     resource: "@SatoMoviesBundle/Resources/config/routing/genre.yml"
     prefix:   /admin/genre
@@ -37,3 +41,9 @@ sato_movies_contact:
 sato_movies_about:
     path:     /about
     defaults: { _controller: SatoMoviesBundle:Default:about }
+
+sato_movies_newsletter_save:
+    #path: /newsletter
+    pattern:  /insert/newsletter
+    defaults: { _controller: SatoMoviesBundle:Newsletter:save }
+    requirements: { _method: post }

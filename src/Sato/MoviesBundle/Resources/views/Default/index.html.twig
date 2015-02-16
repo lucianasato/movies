@@ -20,8 +20,12 @@
 
 		<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
 			<div class="sidebar-module sidebar-module-inset">
-				<h4>About</h4>
-				<p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+				<h4>Newsletter</h4>
+				<p id="msg_newsletter"></p>
+				<form name="form_newsletter" class="form_newsletter"  action="{{ path('sato_movies_newsletter_save') }}">
+					<input id="email" type="email" name="email" placeholder="E-mail"/>
+					<input type="button" id="btn_newsletter" value="Cadastrar" />
+				</form>
 			</div>
 			<div class="sidebar-module">
 				<h4>Archives</h4>

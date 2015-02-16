@@ -1,0 +1,10 @@
+admin_newsletter:
+    path:     /
+    defaults: { _controller: "SatoMoviesBundle:Newsletter:index" }
+
+admin_newsletter_show:
+    path:     /{id}/show
+    defaults: { _controller: "SatoMoviesBundle:Newsletter:show" }
+
+
+
