@@ -2,17 +2,19 @@
 
 {% block body -%}
 	<h1 class="page-header">Directors</h1>
-	<a class="btn btn-primary" href="{{ path('admin_director_new') }}">
-		New Director
-	</a>
+
+    <div class="btn-actions">
+        <a class="btn btn-default" href="{{ path('admin_director_new') }}"><span class="glyphicon glyphicon-plus-sign"></span> New</a>
+    </div>
+
 	<table class="records_list table table-striped table-condensed">
 		<thead>
 			<tr>
 				<th>#</th>
 				<th>Name</th>
 				<th>Birthdate</th>
-				<th>Countryid</th>
-				<th>Actions</th>
+				<th>Country</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -22,11 +24,10 @@
 				<td>{{ entity.name }}</td>
 				<td>{% if entity.birthdate %}{{ entity.birthdate|date('d/m/Y') }}{% endif %}</td>
 				<td>{{ entity.countryId }}</td>
-				<td>
-				<a class="btn btn-default btn-xs btn-info" href="{{ path('admin_director_edit', { 'id': entity.id }) }}">
-				edit</a>
-				<a class="btn btn-default btn-xs btn-success" href="{{ path('admin_director_show', { 'id': entity.id }) }}">show</a>
-				<a class="btn btn-default btn-xs btn-danger" href="{{ path('admin_director_delete', { 'id': entity.id }) }}">delete</a>
+                <td class="btn-td-actions">
+                    <a href="{{ path('admin_director_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-edit"></span></a>
+                    <a href="{{ path('admin_director_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-zoom-in"></span></a>
+                    <a href="{{ path('admin_director_delete', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-trash"></a>
 				</td>
 			</tr>
 		{% endfor %}

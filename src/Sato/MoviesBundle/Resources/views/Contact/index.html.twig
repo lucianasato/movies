@@ -11,7 +11,7 @@
 				<th>Email</th>
 				<th>Message</th>
 				<th>Createdat</th>
-				<th>Actions</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -22,9 +22,9 @@
 				<td>{{ entity.email }}</td>
 				<td>{{ entity.message }}</td>
 				<td>{% if entity.createdAt %}{{ entity.createdAt|date('d/m/Y H:i:s') }}{% endif %}</td>
-				<td>
-					<a class="btn btn-default btn-xs btn-success" href="{{ path('admin_contact_show', { 'id': entity.id }) }}">show</a>
-				</td>
+				<td class="btn-td-actions">
+                    <a href="{{ path('admin_contact_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-zoom-in"></span></a>
+                </td>
 			</tr>
 		{% endfor %}
 		</tbody>
