@@ -13,19 +13,27 @@ use Sato\MoviesBundle\Entity\Newsletter;
  */
 class NewsletterController extends Controller
 {
-
 	/**
 	 * Lists all Newsletter entities.
 	 *
 	 */
-	public function indexAction()
+	public function indexAction( Request $request )
 	{
-		$em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
+        $data = $request->query->all() ;
 
-		$entities = $em->getRepository('SatoMoviesBundle:Newsletter')->findAll();
+        if ( $request->getMethod() == 'GET' && ! empty( $data['email'] ) ) {
+            $entities = $em->getRepository('SatoMoviesBundle:Newsletter')->search( $data ) ;
+        }
+        else {
+            $entities = $em->getRepository('SatoMoviesBundle:Newsletter')->findBy( array(), array( 'createdAt'=> 'desc' ) );
+        }
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate( $entities, $request->query->get('page', 1) , 5 );
 
 		return $this->render('SatoMoviesBundle:Newsletter:index.html.twig', array(
-			'entities' => $entities,
+			'entities' => $pagination,
 		));
 	}
 

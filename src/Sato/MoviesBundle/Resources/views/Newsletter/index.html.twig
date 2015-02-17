@@ -3,6 +3,12 @@
 {% block body -%}
 	<h1>Newsletters</h1>
 
+    <form class="form-inline search_form" method="get" action="{{path('admin_newsletter')}}" name="searchform" id="searchform">
+        <div class="form-group">
+            <input type="text"  class="form-control" placeholder="Email" name="email" value="" />
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
 	<table class="records_list table table-striped table-condensed">
 		<thead>
 			<tr>
@@ -21,5 +27,11 @@
 		{% endfor %}
 		</tbody>
 	</table>
+    <div class="registers">
+        {{ entities.getTotalItemCount }} registers found
+    </div>
+    <div class="navigation">
+        {{ knp_pagination_render(entities) }}
+    </div>
 
 	{% endblock %}

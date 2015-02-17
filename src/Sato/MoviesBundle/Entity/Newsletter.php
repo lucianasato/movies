@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Newsletter
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Sato\MoviesBundle\Repository\NewsletterRepository")
  */
 class Newsletter
 {
