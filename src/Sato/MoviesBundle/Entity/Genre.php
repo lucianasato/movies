@@ -2,6 +2,7 @@
 
 namespace Sato\MoviesBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -34,6 +35,18 @@ class Genre
 	 * @ORM\JoinTable(name="movies_genres")
 	 */
 	private $movies;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
 
 	public function __construct() {
 		$this->movies = new ArrayCollection();

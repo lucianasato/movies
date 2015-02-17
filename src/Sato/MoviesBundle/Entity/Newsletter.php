@@ -2,6 +2,7 @@
 
 namespace Sato\MoviesBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,10 +32,10 @@ class Newsletter
     /**
      * @var \DateTime
      *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
-
 
     /**
      * Get id
@@ -67,28 +68,5 @@ class Newsletter
     public function getEmail()
     {
         return $this->email;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return Newsletter
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = new \DateTime();
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
     }
 }

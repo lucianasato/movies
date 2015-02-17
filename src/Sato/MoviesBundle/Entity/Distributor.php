@@ -2,6 +2,7 @@
 
 namespace Sato\MoviesBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -33,6 +34,18 @@ class Distributor
      * @ORM\OneToMany(targetEntity="Movie", mappedBy="distributor_id")
      */
     private $distributors ;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
 
     public function __construct() {
         $this->distributors = new ArrayCollection() ;

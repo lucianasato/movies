@@ -8,3 +8,4 @@ Projeto de estudo utilizando o framework Symfony 2.
 Bundles:
 + KNP Paginator (paginação)
 + FOSUser (autenticação)
++ StofDoctrineExtensions (doctrine extensions: Timestampable, Sluggable, Translatable, ...)

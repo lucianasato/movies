@@ -76,7 +76,6 @@ class NewsletterController extends Controller
 
 		$em = $this->getDoctrine()->getManager();
 		$entity->setEmail( $email );
-		$entity->setCreatedAt( date("Y-m-d H:i:s") );
 		
 		$em->persist( $entity ) ;
 		$em->flush();

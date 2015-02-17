@@ -2,6 +2,7 @@
 
 namespace Sato\MoviesBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection ;
@@ -56,6 +57,18 @@ class Actor
      * @ORM\JoinTable(name="movies_actors")
      */
     private $movies ;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
 
     public function __construct() {
         $this->movies = new ArrayCollection();
