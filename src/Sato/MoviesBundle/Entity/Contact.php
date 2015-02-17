@@ -148,5 +148,4 @@ class Contact
     {
         return $this->createdAt ;
     }
-
 }

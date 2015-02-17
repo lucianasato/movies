@@ -114,3 +114,8 @@ body {
   padding: 29px;
   font-size: 12px;
 }
+
+.action-options {
+    margin: 40px 0 20px;
+    float: right;
+}

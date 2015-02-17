@@ -34,11 +34,6 @@ class Country
      */
     private $movies ;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Actor", mappedBy="country_id")
-     */
-    private $actors ;
-
     public function __construct() {
         $this->movies = new ArrayCollection() ;
         $this->actors = new ArrayCollection() ;

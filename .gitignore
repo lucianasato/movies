@@ -32,3 +32,5 @@ app/config/config_dev.yml
 .idea/workspace.xml
 
 web/uploads/*
+
+.idea/misc.xml

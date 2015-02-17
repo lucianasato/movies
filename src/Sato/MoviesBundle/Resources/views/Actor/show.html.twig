@@ -1,12 +1,16 @@
 {% extends '::base_admin.html.twig' %}
 
 {% block body -%}
-    <h1>Actor</h1>
-
-    <table class="record_properties">
+    <h1 class="page-header">Actor</h1>
+    <div class="action-options">
+        <a class="btn btn-default btn-sm label-default" href="{{ path('admin_actor') }}">Back</a>
+        <a class="btn btn-default btn-sm btn-info" href="{{ path('admin_actor_edit', { 'id': entity.id }) }}">Edit</a>
+        <a class="btn btn-default btn-sm btn-danger" href="{{ path('admin_actor_delete', { 'id': entity.id }) }}">Delete</a>
+    </div>
+    <table class="record_properties table table-striped">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
@@ -14,23 +18,21 @@
                 <td>{{ entity.name }}</td>
             </tr>
             <tr>
+                <th>Photo</th>
+                <td><img src="{{ asset( 'uploads/' ~ entity.image.path ) }}" /></td>
+            </tr>
+            <tr>
+                <th>Legend</th>
+                <td>{{ entity.image.name }}</td>
+            </tr>
+            <tr>
                 <th>Birthdate</th>
-                <td>{{ entity.birthdate|date('Y-m-d H:i:s') }}</td>
+                <td>{{ entity.birthdate|date('d/m/Y') }}</td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>{{ entity.getCountryId }}</td>
             </tr>
         </tbody>
     </table>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_actor') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('admin_actor_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
 {% endblock %}

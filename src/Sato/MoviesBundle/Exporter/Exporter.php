@@ -18,7 +18,6 @@ class Exporter
 
 	public function export( $data , $template )
 	{
-
 		$filename = sprintf( "export_%s_%s.csv" , $template , date("Y_m_d_His") ) ; 
 		$template = sprintf( 'SatoMoviesBundle:Exporter:%s.html.twig' , strtolower( $template ) ) ;
 
@@ -31,7 +30,6 @@ class Exporter
 	        'Content-Transfer-Encoding' => 'binary' ,
 	        'Pragma' => 'no-cache' ,
 	        'Expires' => '0'
-	        
 	    ));
 	}
 }

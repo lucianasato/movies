@@ -36,10 +36,11 @@ class Director
 	private $birthdate;
 
 	/**
-	 * @var integer
-	 *
-	 * @ORM\Column(name="country_id", type="integer")
-	 */
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="Country", inversedBy="directors")
+     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
+     */
 	private $countryId;
 
 	/**
@@ -55,7 +56,6 @@ class Director
 	public function __toString() {
 		return $this->name ;
 	}
-
 
 	/**
 	 * Get id

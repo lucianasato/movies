@@ -1,12 +1,16 @@
 {% extends '::base_admin.html.twig' %}
 
 {% block body -%}
-    <h1>Movie</h1>
-
-    <table class="record_properties">
+    <h1 class="page-header">Movie</h1>
+    <div class="action-options">
+        <a class="btn btn-default btn-sm label-default" href="{{ path('admin_movie') }}">Back</a>
+        <a class="btn btn-default btn-sm btn-info" href="{{ path('admin_movie_edit', { 'id': entity.id }) }}">Edit</a>
+        <a class="btn btn-default btn-sm btn-danger" href="{{ path('admin_movie_delete', { 'id': entity.id }) }}">Delete</a>
+    </div>
+    <table class="record_properties table table-striped">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
@@ -17,20 +21,43 @@
                 <th>Description</th>
                 <td>{{ entity.description }}</td>
             </tr>
+            <tr>
+                <th>Country</th>
+                <td>{{ entity.getCountryId }}</td>
+            </tr>
+            <tr>
+                <th>Distributor</th>
+                <td>{{ entity.getDistributorId }}</td>
+            </tr>
+            <tr>
+                <th>Release Date</th>
+                <td>{{ entity.getReleaseDate|date('d/m/Y') }}</td>
+            </tr>
+            <tr>
+                <th>Actors</th>
+                <td>
+                    {% for actor in entity.actors %}
+                        {{ actor.name }},
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>Directors</th>
+                <td>
+                    {% for director in entity.directors %}
+                        {{ director.name }},
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>Genres</th>
+                <td>
+                    {% for genre in entity.genres %}
+                        {{ genre.name }},
+                    {% endfor %}
+                </td>
+            </tr>
+
         </tbody>
     </table>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_movie') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('admin_movie_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
 {% endblock %}
