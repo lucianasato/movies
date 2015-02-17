@@ -22,10 +22,9 @@
 				<td>{{ entity.title }}</td>
 				<td>{{ entity.description }}</td>
 				<td>
-				<a class="btn btn-default btn-xs btn-info" href="{{ path('admin_movie_edit', { 'id': entity.id }) }}">
-				edit</a>
-				<a class="btn btn-default btn-xs btn-success" href="{{ path('admin_movie_show', { 'id': entity.id }) }}">show</a>
-				<a class="btn btn-default btn-xs btn-danger" href="{{ path('admin_movie_delete', { 'id': entity.id }) }}">delete</a>
+				<a href="{{ path('admin_movie_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-edit"></span></a>
+				<a href="{{ path('admin_movie_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-zoom-in"></span></a>
+				<a href="{{ path('admin_movie_delete', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-trash"></a>
 				</td>
 			</tr>
 		{% endfor %}

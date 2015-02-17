@@ -3,15 +3,9 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>{% block title %}Admin{% endblock %}</title>
-		{% block stylesheets %}
-			{% stylesheets filter='cssrewrite'
-				'%kernel.root_dir%/../vendor/twbs/bootstrap/dist/css/bootstrap.css'
-				'%kernel.root_dir%/../vendor/twbs/bootstrap/dist/css/bootstrap-theme.css'
-			%}
-			<link rel="stylesheet" href="{{ asset_url }}" />
-			<link rel="stylesheet" href="{{ asset('css/admin.css') }}" />
-			{% endstylesheets %}
-		{% endblock %}
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/admin.css') }}" />
+		{% block stylesheets %}{% endblock %}
 		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 	</head>
 	<body>
@@ -62,13 +56,8 @@
 				</div>
 			</div>
 		</div>
-		{% block javascripts %}
-		{% javascripts
-				'%kernel.root_dir%/../vendor/components/jquery/jquery.js'
-				'%kernel.root_dir%/../vendor/twbs/bootstrap/dist/js/bootstrap.js'
-			%}
-			<script src="{{ asset_url }}"></script>
-			{% endjavascripts %}
-		{% endblock %}
+		<script src="{{ asset('js/jquery-1.11.2.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.js') }}"></script>
+        {% block javascripts %}{% endblock %}
 	</body>
 </html>
