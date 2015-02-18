@@ -25,22 +25,31 @@ class MovieController extends Controller
 	 * @Method("GET")
 	 * @Template()
 	 */
-	public function indexAction(Request $request)
+	public function indexAction( Request $request )
 	{
+        $data = $request->query->all() ;
+        
 		$em = $this->getDoctrine()->getManager();
-		$sql   = "SELECT a FROM SatoMoviesBundle:Movie a";
-		$query = $em->createQuery($sql);
+
+        if ( $request->getMethod() == 'GET' && ( ! empty( $data['title'] ) || ! empty ( $data['country'] ) || ! empty ( $data['distributor'] ) )) {
+            $entities = $em->getRepository('SatoMoviesBundle:Movie')->search( $data ) ;
+        }
+        else {
+            $entities = $em->getRepository('SatoMoviesBundle:Movie')->findBy( array(), array( 'createdAt'=> 'desc' ) );
+        }
+
+        // Popula o select country
+        $countries = $em->getRepository('SatoMoviesBundle:Country')->findBy( array(), array( 'name'=> 'asc' ) );
 
 		$paginator  = $this->get('knp_paginator');
-		$pagination = $paginator->paginate(
-			$query,
-			$request->query->get('page', 1),
-			5 #limit per page
-		);
+		$pagination = $paginator->paginate( $entities, $request->query->get('page', 1) , 5 ) ;
+
 		return array(
-			'entities' => $pagination,
+			'entities' => $pagination ,
+            'countries' => $countries ,
 		);
 	}
+
 	/**
 	 * Creates a new Movie entity.
 	 *

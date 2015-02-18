@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Movie
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Sato\MoviesBundle\Repository\MovieRepository")
  */
 class Movie
 {
