@@ -29,15 +29,11 @@ class DirectorController extends Controller
 	{
 		$em = $this->getDoctrine()->getManager();
 
-		$sql   = "SELECT a FROM SatoMoviesBundle:Director a";
-		$query = $em->createQuery($sql);
+        $entities = $em->getRepository('SatoMoviesBundle:Director')->findBy( array(), array( 'name'=> 'asc' ) ) ;
 
 		$paginator  = $this->get('knp_paginator');
-		$pagination = $paginator->paginate(
-			$query,
-			$request->query->get('page', 1),
-			5
-		);
+		$pagination = $paginator->paginate( $entities , $request->query->get('page', 1) , 5 ) ;
+
 		return array(
 			'entities' => $pagination,
 		);

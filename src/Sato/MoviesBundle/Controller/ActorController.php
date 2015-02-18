@@ -28,15 +28,10 @@ class ActorController extends Controller
 	{
 		$em = $this->getDoctrine()->getManager();
 
-		$sql = "SELECT a FROM SatoMoviesBundle:Actor a";
-		$query = $em->createQuery($sql);
+		$entities = $em->getRepository('SatoMoviesBundle:Actor')->findBy( array(), array( 'name'=> 'asc' ) ) ;
 
 		$paginator  = $this->get('knp_paginator');
-		$pagination = $paginator->paginate(
-			$query,
-			$request->query->get('page', 1),
-			5
-		);
+		$pagination = $paginator->paginate( $entities , $request->query->get('page', 1) , 5 ) ;
 
 		return array(
 			'entities' => $pagination,

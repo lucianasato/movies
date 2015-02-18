@@ -29,15 +29,12 @@ class GenreController extends Controller
 	public function indexAction(Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$sql   = "SELECT a FROM SatoMoviesBundle:Genre a";
-		$query = $em->createQuery($sql);
 
-		$paginator  = $this->get('knp_paginator');
-		$pagination = $paginator->paginate(
-			$query,
-			$request->query->get('page', 1),
-			5 #limit per page
-		);
+        $entities = $em->getRepository('SatoMoviesBundle:Genre')->findBy( array(), array( 'name'=> 'asc' ) ) ;
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate( $entities , $request->query->get('page', 1) , 5 ) ;
+
 		return array(
 			'entities' => $pagination,
 		);

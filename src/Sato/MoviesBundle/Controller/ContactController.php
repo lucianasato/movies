@@ -29,15 +29,11 @@ class ContactController extends Controller
 	{
 		$em = $this->getDoctrine()->getManager();
 
-		$sql   = "SELECT a FROM SatoMoviesBundle:Contact a ORDER BY a.id desc";
-		$query = $em->createQuery($sql);
+        $entities = $em->getRepository('SatoMoviesBundle:Contact')->findBy( array(), array( 'createdAt'=> 'desc' ) ) ;
 
 		$paginator  = $this->get('knp_paginator');
-		$pagination = $paginator->paginate(
-			$query,
-			$request->query->get('page', 1),
-			5
-		);
+		$pagination = $paginator->paginate( $entities , $request->query->get('page', 1) , 5 ) ;
+
 		return array(
 			'entities' => $pagination,
 		);
