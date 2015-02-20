@@ -11,6 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ResizePictureCommand extends ContainerAwareCommand
 {
     const DEFAULT_SIZE_IMAGE = 200 ;
+    const DEFAULT_INPUT_FOLDER = 'web/uploads/' ;
     const DEFAULT_OUTPUT_FOLDER = 'web/uploads/resize/' ;
 
     protected function configure()
@@ -40,17 +41,23 @@ class ResizePictureCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $path = $input->getArgument('path');
+        $path = self::DEFAULT_INPUT_FOLDER . $input->getArgument('path');
         $size = $input->getOption('size') ? $input->getOption('size') : self::DEFAULT_SIZE_IMAGE ;
         $out = $input->getOption('out') ? $input->getOption('out') : self::DEFAULT_OUTPUT_FOLDER ;
 
+        if ( file_exists( $path ) ) {
+            $imagine = new \Imagine\Gd\Imagine();
+            $image = $imagine->open($path);
+            $box = new \Imagine\Image\Box($size, $size);
+            $filename = basename($path);
 
-        $imagine = new \Imagine\Gd\Imagine();
-        $image = $imagine->open($path);
-        $box = new \Imagine\Image\Box($size, $size);
-        $filename = basename($path);
+            $image->resize($box)->save($out . $filename);
+            $output->writeln(sprintf('Path: %s - Folder output: %s', $path, $out));
+        }
+        else {
+            $output->writeln('<info>File not found </info>');
+        }
 
-        $image->resize($box)->save($out . $filename);
-        $output->writeln(sprintf('Path: %s - Folder output: %s', $path, $out));
+
     }
 }
