@@ -22,7 +22,8 @@
         "components/jquery": "2.1.*",
         "knplabs/knp-paginator-bundle": "~2.4" ,
         "friendsofsymfony/user-bundle": "~2.0@dev" ,
-        "stof/doctrine-extensions-bundle": "~1.1@dev"
+        "stof/doctrine-extensions-bundle": "~1.1@dev",
+        "imagine/imagine": "~0.5.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
