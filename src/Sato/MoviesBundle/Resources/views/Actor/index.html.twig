@@ -32,7 +32,7 @@
 				<td>{{ entity.name }}</td>
                 <td>
                     {%  if ( entity.image.path ) %}
-                    <img src="{{ asset( 'uploads/' ~ entity.image.path ) }}" />
+                    <img src="{{ asset( 'uploads/resize/' ~ entity.image.path ) }}" />
                     {% else %}
                     -
                     {% endif %}
