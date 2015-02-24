@@ -22,20 +22,16 @@ class DefaultController extends Controller
 	 */
 	public function indexAction(Request $request)
 	{
-		$em = $this->getDoctrine()->getManager();
-		$sql   = "SELECT a FROM SatoMoviesBundle:Movie a ORDER BY a.id DESC";
-		$query = $em->createQuery($sql);
+        $em = $this->getDoctrine()->getManager();
 
-		$paginator  = $this->get('knp_paginator');
-		$pagination = $paginator->paginate(
-			$query,
-			$request->query->get('page', 1),
-			5
-		);
+        $entities = $em->getRepository('SatoMoviesBundle:Movie')->findBy( array(), array( 'title'=> 'asc' ) ) ;
 
-		return array(
-			'movies' => $pagination,
-		);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate( $entities , $request->query->get('page', 1) , 5 ) ;
+
+        return array(
+            'movies' => $pagination,
+        );
 	}
 
 	/**
