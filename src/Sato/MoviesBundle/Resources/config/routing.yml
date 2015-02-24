@@ -34,6 +34,10 @@ sato_movies_homepage:
     path:     /
     defaults: { _controller: SatoMoviesBundle:Default:index }
 
+sato_movies_movie_show:
+    path:     /movie/{id}
+    defaults: { _controller: SatoMoviesBundle:Default:show }
+
 sato_movies_contact:
     path:     /contact
     defaults: { _controller: SatoMoviesBundle:Default:contact }

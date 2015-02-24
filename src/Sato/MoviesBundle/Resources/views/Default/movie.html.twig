@@ -1,0 +1,70 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+	<div class="blog-header">
+		<h1 class="blog-title">Movies!</h1>
+	</div>
+	<div class="row">
+		<div class="col-sm-8 blog-main">
+
+            <div class="blog-post">
+                <h2 class="blog-post-title">{{ movie.title }}</h2>
+                <p>Description: {{ movie.description }}</p>
+                <p>Release Date: {{ movie.getReleaseDate|date('d/m/Y') }}</p>
+                <p>Country: {{ movie.getCountryId }}</p>
+                <p>Distributor: {{ movie.getDistributorId }}</p>
+                <p>Actors:
+                    {% for actor in movie.actors %}
+                        {{ actor.name }},
+                    {% endfor %}
+                </p>
+                <p>Directors:
+                    {% for director in movie.directors %}
+                        {{ director.name }},
+                    {% endfor %}
+                </p>
+                <p>Genres:
+                    {% for genre in movie.genres %}
+                        {{ genre.name }},
+                    {% endfor %}
+                </p>
+            </div>
+		</div>
+
+		<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+			<div class="sidebar-module sidebar-module-inset">
+				<h4>Newsletter</h4>
+				<p id="msg_newsletter"></p>
+				<form name="form_newsletter" class="form_newsletter"  action="{{ path('sato_movies_newsletter_save') }}">
+					<input id="email" type="email" name="email" placeholder="E-mail"/>
+					<input type="button" id="btn_newsletter" value="Cadastrar" />
+				</form>
+			</div>
+			<div class="sidebar-module">
+				<h4>Archives</h4>
+				<ol class="list-unstyled">
+					<li><a href="#">March 2014</a></li>
+					<li><a href="#">February 2014</a></li>
+					<li><a href="#">January 2014</a></li>
+					<li><a href="#">December 2013</a></li>
+					<li><a href="#">November 2013</a></li>
+					<li><a href="#">October 2013</a></li>
+					<li><a href="#">September 2013</a></li>
+					<li><a href="#">August 2013</a></li>
+					<li><a href="#">July 2013</a></li>
+					<li><a href="#">June 2013</a></li>
+					<li><a href="#">May 2013</a></li>
+					<li><a href="#">April 2013</a></li>
+				</ol>
+			</div>
+			<div class="sidebar-module">
+				<h4>Elsewhere</h4>
+				<ol class="list-unstyled">
+					<li><a href="#">GitHub</a></li>
+					<li><a href="#">Twitter</a></li>
+					<li><a href="#">Facebook</a></li>
+				</ol>
+			</div>
+		</div><!-- /.blog-sidebar -->
+	</div><!-- /.row -->
+	{% endblock %}

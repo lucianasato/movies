@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sato\MoviesBundle\Entity\Contact;
 use Sato\MoviesBundle\Form\ContactType;
+use Sato\MoviesBundle\Entity\Newsletter;
 
 class DefaultController extends Controller
 {
@@ -31,6 +32,7 @@ class DefaultController extends Controller
 			$request->query->get('page', 1),
 			5
 		);
+
 		return array(
 			'movies' => $pagination,
 		);
@@ -78,6 +80,16 @@ class DefaultController extends Controller
 
 	public function aboutAction()
 	{
-
+        echo 'About' ;
 	}
+
+    public function showAction( $id )
+    {
+        $em = $this->getDoctrine()->getManager();
+        $movie = $em->getRepository('SatoMoviesBundle:Movie')->find( $id ) ;
+        return $this->render(
+            'SatoMoviesBundle:Default:movie.html.twig', array(
+                'movie' => $movie
+        ));
+    }
 }
