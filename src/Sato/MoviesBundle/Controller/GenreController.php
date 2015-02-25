@@ -33,7 +33,11 @@ class GenreController extends Controller
         $entities = $em->getRepository('SatoMoviesBundle:Genre')->findBy( array(), array( 'name'=> 'asc' ) ) ;
 
         $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate( $entities , $request->query->get('page', 1) , 5 ) ;
+        $pagination = $paginator->paginate(
+            $entities ,
+            $request->query->get('page', 1) ,
+            $this->container->getParameter('knp_paginator.page_range')
+        ) ;
 
 		return array(
 			'entities' => $pagination,
